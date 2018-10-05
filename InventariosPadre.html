@@ -1,0 +1,390 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        /* Simulating position in an Vue app */
+        .father{
+            width: 90%;
+            margin: 0 auto;
+        }
+
+
+        /* Container of the whole component  css */
+        
+        .inventory-container{
+            width: 100%;
+            max-width: 1140px;
+            border: 1px solid;
+            box-sizing: border-box;
+        }
+         .inventory-container * {
+             box-sizing: inherit;
+        }
+        .inventory-container ul {
+            margin:0;
+            padding:0;
+            list-style: none;
+                    
+        }
+
+
+        /* Header */
+        .inventory-container header {
+            width: 100%;
+            font-size: 12px;
+            background-color: #fff;
+            padding: 1.2em;
+        }
+
+
+        h1.inventory-title{
+            color: #117EEC;
+            font-size: 28px;
+            font-weight: 700;
+            font-family: Muli, sans-serif;
+            margin:0;
+            padding: 0;
+        }
+
+        /* Nav  => searchbar and  filters buttons  */
+        .inventory-container nav div.searchbar-and-filter-button-container {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            align-items: center;
+            min-height: 41px;
+            background-color: #117EEC;
+            width: 100%;
+            flex: 1 1;
+        }
+        .inventory-container nav form{
+            width: 34%;
+            margin: 0;
+            min-width: 265px;
+            max-width: 100%;
+            flex-grow: 2;
+        }
+        .inventory-container nav form fieldset {
+            border: none;
+        }
+        .inventory-container nav form fieldset legend {
+            display: none;
+
+        }
+        .inventory-container nav form fieldset ul li label {
+            display: none;
+        }
+        .inventory-container nav form fieldset ul li input{
+            height: 33px;
+            width: 100%;
+            border-radius: 2em;
+            border: 0;
+            font-size: 12px;
+            font-family: Multi, sans-serif;
+            line-height: 1.25;
+            color: #464a4c;
+            background-color: #fff;
+            padding: 9px 12px;
+        }
+        .inventory-container nav div.filter-buttons-container {
+            min-width: 50%;
+        }
+        .inventory-container nav div.filter-buttons-container ul.list-buttons-container {
+            display: flex;
+            width: 100%;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: space-between;
+            flex: 0 0;
+
+    	}
+        .inventory-container nav div.filter-buttons-container ul.list-buttons-container li{
+            margin-left:6px;
+            margin-bottom:4px;
+        }
+        .inventory-container nav div.filter-buttons-container ul.list-buttons-container li button.filter{
+            background-color: rgba(17,18,18,.36);
+            font-family: Multi, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 12px;
+            letter-spacing: 0.5px;
+            color: #fff;
+            cursor: pointer;
+            padding: 6px 11px;
+            border: 2px solid rgba(0,0,0,0);
+            border-radius: 2px;
+        }
+        .inventory-container nav div.filter-buttons-container ul.list-buttons-container li button.filter:hover{
+            background-color: rgba(74,76,76,.36);
+            
+        }
+        .inventory-container nav div.filter-buttons-container ul.list-buttons-container li button.filter:active{
+            background-color: rgba(74,76,76,.36);
+
+        }
+       .inventory-container nav div.filter-buttons-container ul.list-buttons-container li button.active,
+       .inventory-container nav div.filter-buttons-container ul.list-buttons-container li button.active:hover{
+            background-color: rgb(255, 255, 255);
+            color: #105398;
+        }
+        .inventory-container nav div.filter-buttons-container ul.list-buttons-container li button.filter:active{
+            box-shadow: inset 2px 1px 3px 0 rgba(62,60,84,.290196);     
+            
+        }
+
+
+        /* Excel button container  */
+        .inventory-container nav div.excel-button-container{
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            height: 30px;
+            background-color: #F2F2F2;
+
+            
+        }
+        .inventory-container nav div.excel-button-container button{
+            height: 22px;
+            width: 64px;
+            background-color: #b1b1b1;
+            font-family: Multi, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 2px;
+            margin-left: 6px;
+
+        }
+        .inventory-container nav div.excel-button-container button:hover{
+            background-color: green
+        }
+
+        /* Table*/
+        th, td {
+            text-align: center;
+            padding: 0;
+        }
+        .inventory-container main table{
+            width: 100%;
+            font-family: Multi,sans-serif;
+            font-size: 12px;
+        }
+        .inventory-container main table caption {
+            display: none
+        }
+        th.hidden-header{
+           width: 120px;
+        }
+        th.hidden-header > b {
+            display: none;
+
+        }
+        .circle { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 45px;
+            min-width: 35px;
+            height: 35px;
+            color: #fff;
+            font-family: Muli, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            
+        }
+        .red-circle{
+            background: rgb(243, 111, 102);
+        }
+        .yellow-circle {
+            background: #FED42A;
+        }
+        .orange-circle{
+            background:  rgb(141, 202, 53)
+        }
+        .line{
+                width: 100%;
+                height: 4px;
+                border-radius: 3px;
+                position: absolute;
+                z-index: -1;
+        }
+        .red-line{
+                background: rgb(243, 111, 102);
+        }
+        .yellow-line{
+            background: #FED42A;
+
+        }
+        .orange-line{
+           background:  rgb(141, 202, 53)
+        }
+
+        .index-gray-line{
+            width: 100%;
+            height: 4px;
+            background: rgb(222, 222, 222);
+            position: absolute;
+            z-index: -1;
+        }
+       
+        .index-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+        }
+        .index-gray-circle{
+            height: 25px;
+            min-width:25px;
+            border-radius:30px;
+            font-size:9px;
+            background: #dedede;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Muli, sans-serif;
+            font-weight: 200;
+            text-align: center;
+        }
+    @media only screen and (max-width: 900px) {
+    .inventory-container main table thead tr  th.header> b.column-title {
+        display: none;
+  }
+}
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <article class="inventory-container">
+            <header>
+                <h1 class="inventory-title">Reporte de Reorden De inventarios</h1>
+            </header>
+            <nav>
+                <div class="searchbar-and-filter-button-container">
+                    <form class="search-bar-form">
+                        <fieldset>
+                            <legend>Search Bar</legend>
+                            <ul>
+                                <li>
+                                    <input type="text" id="search-bar-input" class="search-bar-input" placeholder="Nombre o código"
+                                        autofocus>
+                                    <label for="search-bar-input">Buscar</label>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </form>
+                    <div class="filter-buttons-container">
+                        <ul class="list-buttons-container">
+                            <li><button class="filter active">Todos</button></li>
+                            <li><button class="filter">Debajo del punto de reorden</button></li>
+                            <li><button class="filter">Debajo del mínimo</button></li>
+                            <li><button class="filter">Solo negativos</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="excel-button-container">
+                    <button>EXCEL</button>
+                </div>
+            </nav>
+            <main>
+                <!-- Table of products -->
+                <table>
+                    <caption>Reporte de inventarios</caption>
+                    <thead>
+                        <tr>
+                            <th class="hidden-header header clave"> <b>clave</b> </th>
+                            <th class="hidden-header header "> <b>nombre</b> </th>
+                            <th class="header negative-header"> <b class="column-title"> Negativo </b></th>
+                            <th class="hidden-header header"> <b>Mayor a 0 menor a mínimo</b> </th>
+                            <th class="header minimum-header"> <b class="column-title"> Mínimo</b></th>
+                            <th class="hidden-header header "> <b> Mayor a mínimo y menor a punto de reorden </b> </th>
+                            <th class="header po-header"> <b class="column-title"> Punto de reorden </b></th>
+                            <th class="hidden-header header "> <b> Mayor a po y menor que máximo </b> </th>
+                            <th class="header maximo-header"><b class="column-title">Máximo</b></th>
+                            <th class="hidden-header header "> <b class="column-title"> Mayor a maximo </b> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <!-- Id -->
+                            <td>
+                                <p>45678912</p>
+                            </td>
+                            <!-- product's name -->
+                            <td>
+                                <p>Frituras de Amaranto</p>
+                            </td>
+
+
+
+                            <!-- Negative quantity  -->
+                            <td>
+                                <div class="index-container">
+                                    <div class="circle red-circle" title="-250">-250</div>
+                                    <div class="line red-line"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="index-container">
+                                    <div class="circle red-circle" title="130000">130000</div>
+                                    <div class="line red-line"></div>
+                                </div>
+                            </td>
+
+                            <!-- Punto minimo -->
+                            <td>
+                                <div class="index-container">
+                                    <div class="index-gray-circle" title="13000">1300</div>
+                                    <div class="index-gray-line"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="index-container">
+                                    <div class="circle yellow-circle" title="260">260</div>
+                                    <div class="line yellow-line"></div>
+                                </div>
+                            </td>
+
+                            <!-- Punto de reorden -->
+                            <td>
+                                <div class="index-container">
+                                    <div class="index-gray-circle" title="1300">1300</div>
+                                    <div class="index-gray-line"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="index-container">
+                                    <div class="circle orange-circle" title="2600">2600</div>
+                                    <div class="line orange-line"></div>
+                                </div>
+                            </td>
+
+
+                            <!-- Maximo -->
+                            <td>
+                                <div class="index-container">
+                                    <div class="index-gray-circle" title="13000">13000</div>
+                                    <div class="index-gray-line"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="index-container">
+                                    <div class="circle orange-circle" title="260000">260,000</div>
+                                    <div class="line orange-line"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+        </article>
+    </div>
+</body>
